@@ -1,0 +1,45 @@
+using BenchmarkDotNet.Attributes;
+using BenchmarkDotNet.Jobs;
+using BenchmarkDotNet.Order;
+using NCalc.Factories;
+using NCalc.Handlers;
+
+namespace NCalc.Benchmarks;
+
+[SimpleJob(RuntimeMoniker.Net80)]
+[SimpleJob(RuntimeMoniker.Net10_0)]
+[RankColumn]
+[CategoriesColumn]
+[MemoryDiagnoser]
+[Orderer(SummaryOrderPolicy.FastestToSlowest)]
+public class SimpleEvaluationBenchmark
+{
+    private Expression Expression { get; set; }
+
+    [GlobalSetup]
+    public void Setup()
+    {
+        var logicalExpression = LogicalExpressionFactory.Create("pi == 3.14 || 'Chers' == name");
+        var expression = new Expression(logicalExpression, ExpressionOptions.NoCache)
+        {
+            Parameters =
+            {
+                ["name"] = "Chers"
+            }
+        };
+
+        expression.EvaluateParameter += delegate (string name, ParameterEventArgs args)
+        {
+            if (name == "pi")
+                args.Result = 3.14;
+        };
+
+        Expression = expression;
+    }
+
+    [Benchmark]
+    public object SimpleEvaluation()
+    {
+        return Expression.Evaluate();
+    }
+}

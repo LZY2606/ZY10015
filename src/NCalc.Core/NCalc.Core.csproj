@@ -1,0 +1,44 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+    <PropertyGroup>
+        <Nullable>enable</Nullable>
+        <PackageId>NCalc.Core</PackageId>
+        <AssemblyName>NCalc.Core</AssemblyName>
+        <Description>Assembly with the core logic of NCalc.</Description>
+        <SignAssembly>true</SignAssembly>
+        <AssemblyOriginatorKeyFile>../../NCalc.snk</AssemblyOriginatorKeyFile>
+        <RootNamespace>NCalc</RootNamespace>
+		<PackageReadmeFile>README.md</PackageReadmeFile>
+    </PropertyGroup>    
+
+    <ItemGroup>
+        <None Include="../../NCalc.png">
+            <Pack>True</Pack>
+            <PackagePath>/</PackagePath>
+        </None>
+		<None Include="README.md" Pack="true" PackagePath="/" />
+    </ItemGroup>
+
+
+
+    <ItemGroup Condition="'$(TargetFramework)' == 'net462'">
+        <PackageReference Include="Microsoft.CSharp" />
+        <PackageReference Include="System.Collections.Immutable" />
+        <PackageReference Include="System.ValueTuple" />
+        <PackageReference Include="NETStandard.Library" />
+    </ItemGroup>
+
+    <ItemGroup Condition="'$(TargetFramework)' == 'netstandard2.0'">
+        <PackageReference Include="Microsoft.CSharp" />
+        <PackageReference Include="System.Collections.Immutable" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <PackageReference Include="ExtendedNumerics.BigDecimal" />
+        <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" />
+        <PackageReference Include="Parlot" />
+    </ItemGroup>
+    <ItemGroup>
+      <ProjectReference Include="..\NCalc.Parser\NCalc.Parser.csproj" />
+      <ProjectReference Include="..\NCalc.SourceGenerators\NCalc.SourceGenerators.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="false" PrivateAssets="all" />
+    </ItemGroup>
+</Project>

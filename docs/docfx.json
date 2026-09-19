@@ -1,0 +1,84 @@
+{
+  "metadata": [
+    {
+      "src": [
+        {
+          "files": [
+            "**.csproj"
+          ],
+          "src": "../src",
+          "exclude": [
+            "**/test/**",
+            "**/NCalc.Play/**",
+            "**/NCalc.Benchmarks/**"
+          ]
+        }
+      ],
+      "dest": "api",
+      "properties": {
+        "TargetFramework": "net10.0"
+      },
+      "namespaceLayout":"nested",
+      "disableGitFeatures": false,
+      "disableDefaultFilter": false
+    }
+  ],
+  "build": {
+    "content": [
+      {
+        "files": [
+          "api/*.yml",
+          "articles/**/*.md",
+          "articles/**/*.yml",
+          "index.md",
+          "playground.md",
+          "toc.yml"
+        ]
+      }
+    ],
+    "resource": [
+      {
+        "files": [
+          "media/**",
+          "NCalc.png",
+          "favicon.ico"
+        ]
+      }
+    ],
+    "overwrite": [
+      {
+        "files": [
+          "api/**.md"
+        ]
+      }
+    ],
+    "dest": "_site",
+    "globalMetadata": {
+      "_appName":"NCalc",
+      "_disableContribution": false,
+      "_enableSearch": true,
+      "_gitContribute": {
+        "branch": "master",
+        "apiSpecFolder":"api",
+        "repo": "https://github.com/ncalc/ncalc"
+      },
+      "_gitUrlPattern": "github",
+      "_disableSideFilter":true,
+      "_appLogoPath": "NCalc.png",
+      "_appTitle": "NCalc documentation",
+      "_appFooter": "<span>Made with <a href=\"https://dotnet.github.io/docfx/docs/basic-concepts.html\">DocFX</a> &middot; <a href=\"https://github.com/ncalc/ncalc\">GitHub</a> &middot; MIT licensed &middot; Created by <a href=\"https://github.com/sebastienros\">Sébastien Ros</a> &middot; Maintained by <a href=\"https://gumbarros.com.br\">Gustavo Barros</a></span>"
+    },
+    "globalMetadataFiles": [],
+    "fileMetadataFiles": [],
+    "template": [
+      "default",
+      "modern",
+      "themes/ncalc"
+    ],
+    "postProcessors": [ "ExtractSearchIndex" ],
+    "noLangKeyword": false,
+    "keepFileLink": true,
+    "cleanupCacheHistory": false,
+    "disableGitFeatures": false
+  }
+}

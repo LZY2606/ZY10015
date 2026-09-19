@@ -1,0 +1,46 @@
+﻿<Project>
+  <PropertyGroup>
+    <PackageIcon>NCalc.png</PackageIcon>
+    <Authors>Sebastien Ros and contributors</Authors>
+    <Copyright>Sebastien Ros and contributors</Copyright>
+    <Company>https://github.com/ncalc</Company>
+    <RepositoryUrl>https://github.com/ncalc/ncalc.git</RepositoryUrl>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <EnableNETAnalyzers>true</EnableNETAnalyzers>
+  </PropertyGroup>
+    
+    <PropertyGroup>
+        <DefineConstants Condition="'$(DocFx)'=='true'">$(DefineConstants);DOCFX</DefineConstants>
+    </PropertyGroup>
+    
+  <ItemGroup>
+    <PackageReference Include="Nerdbank.GitVersioning">
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
+    <PackageReference Include="PolySharp">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+
+    <PackageReference Include="Roslynator.Analyzers" PrivateAssets="all"/>
+    <PackageReference Include="Roslynator.CodeAnalysis.Analyzers" PrivateAssets="all"/>
+    <PackageReference Include="Roslynator.Formatting.Analyzers" PrivateAssets="all"/>
+  </ItemGroup>
+  <ItemGroup>
+    <Using Include="System" />
+    <Using Include="System.Text" />
+    <Using Include="System.Threading.Tasks" />
+    <Using Include="System.Collections" />
+    <Using Include="System.Collections.Concurrent" />
+    <Using Include="System.Collections.Generic" />
+    <Using Include="System.Globalization" />
+    <Using Include="System.Linq" />
+  </ItemGroup>
+  <PropertyGroup Condition="'$(Configuration)'=='Release' Or '$(Configuration)'=='SignedRelease'">
+    <Deterministic>true</Deterministic>
+    <ContinuousIntegrationBuild>true</ContinuousIntegrationBuild>
+    <EmbedUntrackedSources>true</EmbedUntrackedSources>
+    <Optimize>true</Optimize>
+  </PropertyGroup>
+</Project>

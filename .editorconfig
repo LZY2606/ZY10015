@@ -1,0 +1,18 @@
+﻿# EditorConfig: http://EditorConfig.org
+# VS extension: https://visualstudiogallery.msdn.microsoft.com/c8bccfe2-650c-4b42-bc5c-845e21f96328
+
+# top-most EditorConfig file
+root = true
+
+# 4 space indentation
+[*.cs]
+csharp_indent_case_contents_when_block = false
+dotnet_sort_system_directives_first = true
+indent_style = space
+indent_size = 4
+trim_trailing_whitespace = true
+dotnet_diagnostic.RCS1194.severity = none
+dotnet_diagnostic.RCS1139.severity = none
+dotnet_diagnostic.RCS1001.severity = none
+dotnet_diagnostic.RCS1036.severity = error
+dotnet_diagnostic.CA2012.severity = error
