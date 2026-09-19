@@ -1,0 +1,38 @@
+name: build-test
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  verify:
+    name: verify (${{ matrix.os }})
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, windows-latest, macos-latest]
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup .NET SDK (global.json)
+        uses: actions/setup-dotnet@v4
+        with:
+          global-json-file: global.json
+
+      # 缓存全局包目录（~/.nuget/packages），而不是仓库内的 bin/obj 输出目录。
+      - name: Cache NuGet global packages
+        uses: actions/cache@v4
+        with:
+          path: ~/.nuget/packages
+          key: ${{ runner.os }}-nuget-${{ hashFiles('**/packages.lock.json') }}
+          restore-keys: ${{ runner.os }}-nuget-
+
+      - name: Verify (Unix entry)
+        if: runner.os != 'Windows'
+        run: sh eng/verify.sh
+
+      - name: Verify (Windows entry)
+        if: runner.os == 'Windows'
+        shell: pwsh
+        run: ./eng/verify.ps1
