@@ -53,3 +53,6 @@ coverage/
 .vite/
 .turbo/
 *.tsbuildinfo
+
+# --- eng/verify.sh verification outputs (disposable, never versioned) ---
+/artifacts/

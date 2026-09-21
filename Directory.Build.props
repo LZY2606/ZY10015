@@ -18,6 +18,10 @@
     <PackageReference Include="Nerdbank.GitVersioning">
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
+    <PackageReference Include="Microsoft.NETFramework.ReferenceAssemblies" Condition="'$(TargetFrameworkIdentifier)' == '.NETFramework'">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
     <PackageReference Include="PolySharp">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
@@ -42,5 +46,13 @@
     <ContinuousIntegrationBuild>true</ContinuousIntegrationBuild>
     <EmbedUntrackedSources>true</EmbedUntrackedSources>
     <Optimize>true</Optimize>
+    <!--
+      Map machine/run-specific prefixes to constants so source paths, the PDB
+      GUID and the PE TimeDateStamp are identical across machines and runs.
+      The SDK already maps $(NuGetPackageRoot); map the disposable artifacts
+      root (which differs on every clean verification run) and the checkout,
+      otherwise Roslyn emits a wall-clock PE timestamp despite Deterministic=true.
+    -->
+    <PathMap>$(MSBuildThisFileDirectory)artifacts/=/_/artifacts/,$(MSBuildThisFileDirectory)=/_/</PathMap>
   </PropertyGroup>
 </Project>
